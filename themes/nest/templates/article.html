@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+
+{% block title %}{{ article.title }} - {{ super() }}{% endblock title %}
+{% block description %}{{ article.content|striptags|truncate(200)|escape }}{% endblock description %}
+{% block keywords %}{% for tag in article.tags|sort %}{{ tag }}{% if not loop.last %}, {% endif %}{% endfor %}{% endblock keywords %}
+
+{% block headerstyle %}
+    {% if article.illustration %}
+    <div class="header-container" style="background: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), url('{{ SITEURL }}/images/{{ article.illustration }}'); background-position: center; ">
+    {% else %}
+    <div class="header-container-article gradient">
+    {% endif %}
+{% endblock headerstyle %}
+
+{% block header %}
+    <!-- Header -->
+	<script src="{{ SITEURL }}/theme/js/toc.js" type="text/javascript"></script>
+	<script type="text/javascript">
+	if(window.screen.width >= 768){
+		window.onscroll = function(){
+			var t = document.documentElement.scrollTop || document.body.scrollTop; 
+			var top_div = document.getElementById( "top_div" );
+			if( t >= 300 ) {
+				top_div.style.display = "block";
+			} else {
+				top_div.style.display = "none";
+			}
+		}
+	}
+	</script>
+    <div class="container header-wrapper-article">
+        <div class="row">
+              <div class="col-lg-12">
+					<div class="header-vertical-line"></div>
+					<h1 class="header-title-article">{{ article.title }}</h1>
+					<p class="header-date-article">
+					<!-- {{ NEST_ARTICLE_HEADER_BY }} {% for author in article.authors %}<a href="{{ SITEURL }}/{{ author.url }}">{{ author }}</a>{% if not loop.last %}, {% endif %}{% endfor %}, --> 
+					{{ article.locale_date }}{% if article.modified %}, {{ NEST_ARTICLE_HEADER_MODIFIED }} {{ article.locale_modified }}{% endif %}&nbsp;&nbsp;|&nbsp;&nbsp;
+					<span class="glyphicon glyphicon-folder-open mr5" aria-hidden="true"></span> <a href="{{ SITEURL }}/{{ category.url }}">{{ article.category|capitalize }}</a>&nbsp;&nbsp;
+					<span class="glyphicon glyphicon-tags mr5" aria-hidden="true"></span>
+                         {% for tag in article.tags|sort %}<a href="{{ SITEURL }}/{{ tag.url }}">{{ tag }}</a>{% if not loop.last %}, {% endif %}{% endfor %}</p>
+              </div>
+        </div>
+    </div>
+    <!-- /Header -->
+{% endblock header %}
+
+{% block content %}
+	<div id="top_div" onclick="javascript:window.scrollTo(0,0)"><span class="glyphicon glyphicon-chevron-up" aria-hidden="true"></span> 回到顶部</div>
+    <div id="contents" class="container content">
+		<div id="toc"></div>
+        {{ article.content }}
+		<br/><br/>
+		<p style="color: #eb2344;"><b>
+		{% if article.reprint %}
+		本文为转载文章，原文链接：<a href="{{ article.reprint }}" target="_blank">{{ article.reprint }}</a>
+		{% else %}
+		原创文章，欢迎转载，请保留出处。有任何错误、疑问或者建议，欢迎指出。
+		{% endif %}
+		</b></p>
+		<br/><br/>
+        {% if article.related_posts %}
+            <h4>Articles connexes</h4>
+            <dl class="dl-horizontal">
+            {% for related_post in article.related_posts %}
+                <dt>{{ related_post.locale_date}}</dt>
+                <dd><a href="{{ SITEURL }}/{{ related_post.url }}">{{ related_post.title }}</a></dd>
+            {% endfor %}
+            </dl>
+        {% endif %}
+
+        {% include "disqus_script.html" %}
+        
+    </div>
+{% endblock %}
