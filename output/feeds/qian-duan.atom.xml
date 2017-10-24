@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom"><title>A Pelican Blog - 前端</title><link href="/" rel="alternate"></link><link href="/feeds/qian-duan.atom.xml" rel="self"></link><id>/</id><updated>2017-10-25T00:59:14+08:00</updated><entry><title>Vue入门学习</title><link href="/fast-study-vue.html" rel="alternate"></link><published>2017-10-25T00:59:08+08:00</published><updated>2017-10-25T00:59:14+08:00</updated><author><name>geons</name></author><id>tag:None,2017-10-25:/fast-study-vue.html</id><summary type="html">&lt;p&gt;tech study vue.js in an hour&lt;/p&gt;</summary><content type="html">&lt;h2&gt;Vue新特性&lt;/h2&gt;
+&lt;h2&gt;原理介绍&lt;/h2&gt;
+&lt;h2&gt;实例运行&lt;/h2&gt;
+&lt;h2&gt;总结&lt;/h2&gt;</content><category term="vue"></category></entry></feed>
