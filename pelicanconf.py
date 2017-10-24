@@ -1,5 +1,5 @@
 # -*- coding:utf-8 -*-
-DEFAULT_DATE_FORMAT = '%Y-%m-%d %H:%M:%S'
+DEFAULT_DATE_FORMAT = '%Y-%m-%d'
 
 THEME = 'themes/nest'
 
@@ -61,4 +61,4 @@ STATIC_PATHS = ['images', 'extra/favicon.ico']
 EXTRA_PATH_METADATA = {
     'extra/favicon.ico': {'path': 'favicon.ico'}
 }
-
+DELETE_OUTPUT_DIRECTORY = True
