@@ -4,11 +4,11 @@
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="description" content="Vue新特性 原理介绍 实例运行 总结">
+        <meta name="description" content="Vue新特性 Vue的特别之处在于抛弃了DOM操作思维，Vue.js是数据驱动的，任何适合都是根据数据来保持视图的更新，当然，在使用时候，完成一些简单的业务处理也是需要jQuery或者js。...">
         <meta name="keywords" content="vue">
         <link rel="icon" href="/favicon.ico">
 
-        <title>Vue入门学习 - A Pelican Blog</title>
+        <title>Vue-cli脚手架 - A Pelican Blog</title>
 
         <!-- Stylesheets -->
         <link href="/theme/css/bootstrap.min.css" rel="stylesheet">
@@ -71,10 +71,10 @@
         <div class="row">
               <div class="col-lg-12">
 					<div class="header-vertical-line"></div>
-					<h1 class="header-title-article">Vue入门学习</h1>
+					<h1 class="header-title-article">Vue-cli脚手架</h1>
 					<p class="header-date-article">
 					<!-- 作者 <a href="/author/geons.html">geons</a>, --> 
-					2017-10-25, 修改 2017-10-25&nbsp;&nbsp;|&nbsp;&nbsp;
+					2017-10-25, 修改 2017-11-12&nbsp;&nbsp;|&nbsp;&nbsp;
 					<span class="glyphicon glyphicon-folder-open mr5" aria-hidden="true"></span> <a href="/category/qian-duan.html">前端</a>&nbsp;&nbsp;
 					<span class="glyphicon glyphicon-tags mr5" aria-hidden="true"></span>
 <a href="/tag/vue.html">vue</a></p>
@@ -93,9 +93,86 @@
     <div id="contents" class="container content">
 		<div id="toc"></div>
         <h2>Vue新特性</h2>
-<h2>原理介绍</h2>
-<h2>实例运行</h2>
+<p>Vue的特别之处在于抛弃了DOM操作思维，Vue.js是数据驱动的，任何适合都是根据数据来保持视图的更新，当然，在使用时候，完成一些简单的业务处理也是需要jQuery或者js。</p>
+<p>本文主要是Vue-cli，俗称Vue的脚手架介绍，快速入门Vue开发。Vue-cli是vue工程开发的脚手架，可以自动生成vue模版，并且和webpack紧密结合一键式完成vue整个项目的开发环境部署。</p>
+<h2>vue-cli使用</h2>
+<ul>
+<li>
+<p>安装nodejs环境</p>
+<blockquote>
+<p><a href="https://nodejs.org/en/">Nodejs下载地址</a></p>
+</blockquote>
+</li>
+<li>
+<p>全局安装vue-cli脚手架</p>
+<blockquote>
+<p>npm install vue-cli -g</p>
+</blockquote>
+</li>
+<li>
+<p>使用webpack初始化项目</p>
+<blockquote>
+<p>vue init webpack my_project</p>
+</blockquote>
+</li>
+<li>
+<p>进入项目文件夹，使用npm安装依赖</p>
+<blockquote>
+<p>cd my_project</p>
+</blockquote>
+</li>
+<li>
+<p>安装依赖（根据package.json安装）</p>
+<blockquote>
+<p>npm install </p>
+</blockquote>
+</li>
+<li>
+<p>完成后的完整目录（具体的文件作用请阅读参考）</p>
+</li>
+</ul>
+<div class="highlight"><pre><span></span><span class="o">./</span><span class="n">my_project</span>
+ <span class="o">./</span><span class="n">build</span> <span class="c1">## 打包发布的参数配置</span>
+ <span class="o">./</span><span class="n">config</span> <span class="c1">## webpack打包参数配置</span>
+ <span class="o">./</span><span class="n">src</span> <span class="c1">## 开发源代码</span>
+ <span class="o">./</span><span class="n">static</span> <span class="c1">## 静态文件</span>
+ <span class="o">./</span><span class="n">test</span> <span class="c1">## 其他配置文件</span>
+ <span class="o">./</span><span class="n">dst</span> <span class="c1">## 打包好的文件目录，只有一个index和打包好的js</span>
+</pre></div>
+
+
+<ul>
+<li>
+<p>开发环境运行</p>
+<blockquote>
+<p>npm run dev
+此时打开浏览器localhost:8080即可看到主页</p>
+</blockquote>
+</li>
+<li>
+<p>build到开发环境，生成的文件在dst目录里面</p>
+<blockquote>
+<p>npm run build</p>
+</blockquote>
+</li>
+</ul>
+<p>注意这里比较坑的是，默认的引用路径需要修改，进入config/index.js文件，修改为assetPublicPath:'./'，设定为当前目录</p>
 <h2>总结</h2>
+<p>整个vue-cli就基本上完成了，不过在实际开发中可能还会根据不同的情况调整不同的参数。</p>
+<h2>有用的资料</h2>
+<ul>
+<li><a href="https://gold.xitu.io/post/5860eebe1b69e6006ce1395c">史上最简单的 Angular2教程</a></li>
+<li><a href="https://doc.webpack-china.org/guides/">webpack</a></li>
+<li><a href="https://cn.vuejs.org/v2/guide/comparison.html">Vue官网</a></li>
+<li><a href="http://www.cnblogs.com/keepfool/p/5619070.html">VueJs技术文档</a></li>
+<li><a href="http://blog.guowenfh.com/2016/03/24/vue-webpack-01-base/">webpack入门</a></li>
+<li><a href="https://segmentfault.com/a/1190000009291545">vue-cli脚手架使用</a></li>
+<li><a href="http://es6.ruanyifeng.com/#docs/intro">ECS6新特性</a></li>
+<li><a href="http://codeguide.bootcss.com/">前端编码规范</a></li>
+<li><a href="http://cuiqingcai.com/1052.html">Python爬虫技术</a></li>
+<li><a href="https://www.the5fire.com/the-way-to-explore-django-source-code-by-the5fire-part1.html">Django源码阅读方法</a></li>
+<li><a href="https://github.com/daoluan/decode-Django">Django源码分析</a></li>
+</ul>
 		<br/><br/>
 		<p style="color: #eb2344;"><b>
 		原创文章，欢迎转载，请保留出处。有任何错误、疑问或者建议，欢迎指出。
