@@ -97,17 +97,19 @@ cd ..
 &emsp;上面的代码内容是找到已经运行的服务器程序，结束它，然后重新生成Output文件，并且重新打开本地服务器。如果要修改端口可以替换bat文件中的端口号。有了这个脚本，以后需要更新预览，只需要在博客目录下打开cmd，输入auto-update.bat，敲一下回车就能自动完成了，或者你可以直接双击启动，很放ez吧。
 
 ## 开始发布
-&emsp;关于GithubPage的搭建我不做详细介绍，因为资料很多，你只需要简单的通过GitHub Doc能够快速搭建自己的github.io，我们只需要将output目录下的文件提交到github.io即可，外网就可以通过访问xxx.gethub.io访问到你的博客主页。
-&emsp;很简单，把Github.io项目拉下来，用Output目录里面的内容替换掉，push上去刷新就能看到了。不过这里需要注意的是是否配置了RELATIVE_URLS这个相对路径设置，SITEURL也要设置成Pages的地址，否者Feed的xml地址将显示不完全，编译的时候也会提示： "WARNING: Feeds generated without SITEURL set properly may not be valid"。所以这些都要手动检查清楚后再发布。
-&emsp;我猜，你已经想拥有自己的域名，那就更简单了，仍然按照gihub doc进行DNS解析，注意一定访问官方提供的方法，因为解析IP可能有变动。
+&emsp;关于GithubPage的搭建我不做详细介绍，因为资料很多，你只需要简单的通过GitHub Doc能够快速搭建自己的github.io，我们只需要将output目录下的文件提交到github.io即可，外网就可以通过访问xxx.gethub.io访问到你的博客主页。很简单，把Github.io项目拉下来，用Output目录里面的内容替换掉，push上去刷新就能看到了。不过这里需要注意的是是否配置了RELATIVE_URLS这个相对路径设置，SITEURL也要设置成Pages的地址，否者Feed的xml地址将显示不完全，编译的时候也会提示： "WARNING: Feeds generated without SITEURL set properly may not be valid"。所以这些都要手动检查清楚后再发布。
+
+> 我猜，你已经想拥有自己的域名，那就更简单了，仍然按照gihub doc进行DNS解析，注意一定访问官方提供的方法，因为解析IP可能有变动。  
 
 ## 最后的话
-&emsp;通过以上的步骤，至少本地已经可以访问到博客了，因此，Pelican门槛是非常非常低的，非常便利。作者提供一些优化思路。
-- 七牛云静态资源存储
-- 博客目录和发布目录分两个仓库
-- 增加评论功能
-- 阅读主题模板源码，修改模板
-- 阅读Pelican源码，部署到Nginx上提升性能
+通过以上的步骤，至少本地已经可以访问到博客了，因此，Pelican门槛是非常非常低的，非常便利。作者提供一些优化思路。
+
+1. 七牛云静态资源存储
+2. 博客目录和发布目录分两个仓库
+3. 增加评论功能
+4. 阅读主题模板源码，修改模板
+5. 阅读Pelican源码，部署到Nginx上提升性能
+
 
 ## 参考文章
 &emsp;[Pelican官方文档](http://docs.getpelican.com/en/3.7.1/index.html)

@@ -4,7 +4,7 @@
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="description" content="准备工作 安装环境 创建博客 编写文章 静态文件 自动发布 总结">
+        <meta name="description" content="准备工作  在国内，Pelican的知名度和没有国外那么高，因此也没有几篇像模像样的教程，本文介绍Pelican+GithubPage进行快速博客搭建的方法，Windows和Linux平台差别不大，文章以Windows平台。 安装Pelican...">
         <meta name="keywords" content="pelican github">
         <link rel="icon" href="/favicon.ico">
 
@@ -18,7 +18,7 @@
 
         <!-- RSS Feeds -->
         <link href="/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="A Pelican Blog Full Atom Feed" />
-        <link href="/feeds/pelican.atom.xml" type="application/atom+xml" rel="alternate" title="A Pelican Blog Categories Atom Feed" />
+        <link href="/feeds/blog.atom.xml" type="application/atom+xml" rel="alternate" title="A Pelican Blog Categories Atom Feed" />
         <!-- /RSS Feeds -->
 
         <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
@@ -75,7 +75,7 @@
 					<p class="header-date-article">
 					<!-- 作者 <a href="/author/geons.html">geons</a>, --> 
 					2017-10-24, 修改 2017-10-24&nbsp;&nbsp;|&nbsp;&nbsp;
-					<span class="glyphicon glyphicon-folder-open mr5" aria-hidden="true"></span> <a href="/category/pelican.html">Pelican</a>&nbsp;&nbsp;
+					<span class="glyphicon glyphicon-folder-open mr5" aria-hidden="true"></span> <a href="/category/blog.html">Blog</a>&nbsp;&nbsp;
 					<span class="glyphicon glyphicon-tags mr5" aria-hidden="true"></span>
 <a href="/tag/pelican-github.html">pelican github</a></p>
               </div>
@@ -93,12 +93,114 @@
     <div id="contents" class="container content">
 		<div id="toc"></div>
         <h2>准备工作</h2>
-<h3>安装环境</h3>
+<p>&emsp;在国内，Pelican的知名度和没有国外那么高，因此也没有几篇像模像样的教程，本文介绍Pelican+GithubPage进行快速博客搭建的方法，Windows和Linux平台差别不大，文章以Windows平台。</p>
+<h2>安装Pelican</h2>
+<p>&emsp;在Windows下搭建pelican环境可以说完爆Jekyll,如果熟悉Python，甚至比Hexo还要简单，闲话不多说，直接开干。首先安装Python环境，我安装的是Python2.7，如果你需要Python3.6.1，也可以安装，没有任何问题。建议你先安装pip。</p>
+<div class="highlight"><pre><span></span>    <span class="n">easy_install</span> <span class="n">pip</span>
+</pre></div>
+
+
+<p>&emsp;安装完Python后，使用pip很方便安装pelican和markdown。</p>
+<div class="highlight"><pre><span></span>    <span class="n">pip</span> <span class="n">install</span> <span class="n">pelican</span>
+    <span class="n">pip</span> <span class="n">install</span> <span class="n">markdown</span>
+</pre></div>
+
+
+<p>Now，你的Pelican环境已经搭建好了，So Ez？</p>
 <h2>创建博客</h2>
+<p>&emsp;在一个空白的文件夹里面打开cmd，使用命令快速建立博客模板。</p>
+<div class="highlight"><pre><span></span>    <span class="n">pelican</span><span class="o">-</span><span class="n">quickstart</span>
+</pre></div>
+
+
+<p>&emsp;进入quickstart配置过程后，这些设置会生成对应的pelicanconf.py配置文件和Makefile文件，不过Windows下由于不能使用Makefile，所以这里即使填错选项也可以待会在修改。因此，这个你可以根据你的实际需要完成。完成后可见如下文件目录。</p>
+<div class="highlight"><pre><span></span>    <span class="o">./</span><span class="n">content</span> <span class="c1"># 博文目录</span>
+    <span class="o">./</span><span class="n">output</span> <span class="c1"># html生成目录</span>
+    <span class="o">./</span><span class="n">fabfile</span><span class="o">.</span><span class="n">py</span> <span class="c1"># Deploy设置相关</span>
+    <span class="o">./</span><span class="n">Makefile</span> <span class="c1"># 自动构建目录</span>
+    <span class="o">./</span><span class="n">pelicanconfig</span><span class="o">.</span><span class="n">py</span> <span class="c1"># 配置文件</span>
+    <span class="o">./</span><span class="n">publishconf</span><span class="o">.</span><span class="n">py</span> <span class="c1"># 发布时配置文件</span>
+</pre></div>
+
+
+<p>&emsp;注意的是publishconf.py完全导入pelicanconf.py文件，所以前者用于本地调试使用，后者发布时自动替换某些属性，例如SITEURL，不过由于我们不使用Makefile，所以直接使用pelicanconf.py文件即可，它的配置方法比较多，针对不同的主题模板有不同的配置方法，这里不能给出具体的配置，初次搭建，可以不用任何配置。</p>
+<p>&emsp;fabfile.py里面包括各种Deploy相关的配置和操作，可以在里面修改默认的本地服务器端口（80），一般来说都不需要修改。你也可以在Deploy时候修改各类参数，都没有任何问题。</p>
 <h2>编写文章</h2>
-<h2>静态文件</h2>
-<h2>自动发布</h2>
-<h2>总结</h2>
+<p>&emsp;我们首先写一篇HelloPelican文章然后生成发布到本地瞧瞧是怎么个样子。上文说过content目录是用来存放博文等文件目录的，直接在目录里面新建一个文件test.md(本文使用MarkDown来编辑，pelican也支reStructuredText)。</p>
+<div class="highlight"><pre><span></span><span class="n">Title</span><span class="o">:</span> <span class="n">HelloPelican</span>
+<span class="n">Date</span><span class="o">:</span> <span class="mi">2017</span><span class="o">-</span><span class="mi">10</span><span class="o">-</span><span class="mi">26</span>
+<span class="n">Category</span><span class="o">:</span> <span class="n">test</span>
+<span class="n">Tags</span><span class="o">:</span> <span class="n">test</span>
+<span class="n">Slug</span><span class="o">:</span> <span class="n">blog</span><span class="o">/</span><span class="n">test</span>
+<span class="n">Author</span><span class="o">:</span> <span class="n">geons</span>
+
+<span class="err">##</span><span class="n">First</span>
+<span class="n">Text</span>
+</pre></div>
+
+
+<p>&emsp;注意：Title等字段用来声明博客的属性，Slug为对应生成html的相对路径，如果上述最终生成路径是blog目录下的hello.html,这些字段还可以自定义，这个进阶内容可以后面再说。出去属性声明外的部分都是正文内容，##First就是正文的开始了。你可以用markdown随心所欲编写你的内容。</p>
+<h2>生成静态HTML</h2>
+<p>&emsp;发布后的博客其实是一个单纯如少女的HTML静态文件，所以，这样很安全的，你不用担心数据库安全。使用如下命令进行HTML静态文件生成。生成好的文件在output目录，因此，output目录就是我们要发布的文件。</p>
+<div class="highlight"><pre><span></span>    <span class="n">pelican</span> <span class="n">content</span>
+</pre></div>
+
+
+<p>&emsp;生成成功后，在当前目录下，你可以使用下面命令启动server，通过浏览器可以访问到你的页面，你可以自定义端口，也可以空缺，默认采用80端口访问。</p>
+<div class="highlight"><pre><span></span>    <span class="n">pelican</span> <span class="o">-</span><span class="n">m</span> <span class="n">pelican</span><span class="o">.</span><span class="n">server</span> <span class="mi">80</span>
+</pre></div>
+
+
+<p>如果没有任何的报错信息，服务器已经启动成功，可以通过http://127.0.0.1:80进行访问。</p>
+<h2>静态资源文件</h2>
+<p>&emsp;通过上文，我们已经成功添加第一篇博客，但是很快会发现，如果你往content目录里面添加一个images文件夹存放博文的图片，你会发现<code>pelican content</code>并不会复制images文件夹到output目录下。这种不需要编译但又要用到的文件，我们称它为“静态文件”。pelican默认不会复制静态文件到output目录，需要我们在pelicanconf.py配置文件上面配置一下,添加一行：</p>
+<div class="highlight"><pre><span></span>    <span class="n">STATIC_PATHS</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;images&#39;</span><span class="p">]</span>
+</pre></div>
+
+
+<p>&emsp;这样就会生成output资源时就会自动把iamges文件夹拷贝到output目录了。另外使用EXTRA_PATH_METADATA也可以把某个目录的文件映射过去，例如favicon.ico放在content/extra目录下，最后需要生成到output的根目录，可以添加：</p>
+<div class="highlight"><pre><span></span>    <span class="n">STATIC_PATHS</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;images&#39;</span><span class="p">,</span> <span class="s1">&#39;extra/favicon.ico&#39;</span><span class="p">]</span>
+    <span class="n">EXTRA_PATH_METADATA</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s1">&#39;extra/favicon.ico&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;path&#39;</span><span class="p">:</span> <span class="s1">&#39;favicon.ico&#39;</span><span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<p>&emsp;说到这里，你可能会想，static目录岂不是会持续增量，当然，我也有一个不错的方案告诉你，用七牛云的数据存储空间，进行静态文件的存储，在访问速度和安全性上都是不错的，七牛云的服务我会在下篇文章介绍。</p>
+<h2>自动渲染</h2>
+<p>&emsp;由于Win下不能使用makefile，因此不能使用<code>make html</code>命令进行生成。因此，写个批处理文件，实现渲染和重启服务器。脚本代码如下。</p>
+<div class="highlight"><pre><span></span>@echo off
+setlocal enabledelayedexpansion
+for /f &quot;delims=  tokens=1&quot; %%i in (&#39;netstat -aon ^| findstr &quot;8000&quot;&#39;) do (
+    set a=%%i
+    goto job
+)
+:job
+taskkill /F /pid &quot;!a:~71,5!&quot;
+pelican content
+cd output
+start cmd /c &quot;python -m pelican.server 8000&quot;
+cd ..
+</pre></div>
+
+
+<p>&emsp;上面的代码内容是找到已经运行的服务器程序，结束它，然后重新生成Output文件，并且重新打开本地服务器。如果要修改端口可以替换bat文件中的端口号。有了这个脚本，以后需要更新预览，只需要在博客目录下打开cmd，输入auto-update.bat，敲一下回车就能自动完成了，或者你可以直接双击启动，很放ez吧。</p>
+<h2>开始发布</h2>
+<p>&emsp;关于GithubPage的搭建我不做详细介绍，因为资料很多，你只需要简单的通过GitHub Doc能够快速搭建自己的github.io，我们只需要将output目录下的文件提交到github.io即可，外网就可以通过访问xxx.gethub.io访问到你的博客主页。很简单，把Github.io项目拉下来，用Output目录里面的内容替换掉，push上去刷新就能看到了。不过这里需要注意的是是否配置了RELATIVE_URLS这个相对路径设置，SITEURL也要设置成Pages的地址，否者Feed的xml地址将显示不完全，编译的时候也会提示： "WARNING: Feeds generated without SITEURL set properly may not be valid"。所以这些都要手动检查清楚后再发布。</p>
+<blockquote>
+<p>我猜，你已经想拥有自己的域名，那就更简单了，仍然按照gihub doc进行DNS解析，注意一定访问官方提供的方法，因为解析IP可能有变动。  </p>
+</blockquote>
+<h2>最后的话</h2>
+<p>通过以上的步骤，至少本地已经可以访问到博客了，因此，Pelican门槛是非常非常低的，非常便利。作者提供一些优化思路。</p>
+<ol>
+<li>七牛云静态资源存储</li>
+<li>博客目录和发布目录分两个仓库</li>
+<li>增加评论功能</li>
+<li>阅读主题模板源码，修改模板</li>
+<li>阅读Pelican源码，部署到Nginx上提升性能</li>
+</ol>
+<h2>参考文章</h2>
+<p>&emsp;<a href="http://docs.getpelican.com/en/3.7.1/index.html">Pelican官方文档</a></p>
 		<br/><br/>
 		<p style="color: #eb2344;"><b>
 		原创文章，欢迎转载，请保留出处。有任何错误、疑问或者建议，欢迎指出。
