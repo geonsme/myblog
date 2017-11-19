@@ -1,5 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>A Pelican Blog</title><link href="/" rel="alternate"></link><link href="/feeds/all-en.atom.xml" rel="self"></link><id>/</id><updated>2017-11-19T15:56:06+08:00</updated><entry><title>Vue-cli脚手架-手摸手系列</title><link href="/fast-study-vue.html" rel="alternate"></link><published>2017-10-25T00:59:08+08:00</published><updated>2017-11-19T15:56:06+08:00</updated><author><name>geons</name></author><id>tag:None,2017-10-25:/fast-study-vue.html</id><summary type="html">&lt;p&gt;专注后端的前端工程师&lt;/p&gt;</summary><content type="html">&lt;h2&gt;Vue新特性&lt;/h2&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>A Pelican Blog</title><link href="/" rel="alternate"></link><link href="/feeds/all-en.atom.xml" rel="self"></link><id>/</id><updated>2017-11-19T16:19:36+08:00</updated><entry><title>debian下crontab执行时间不准确</title><link href="/debian-cron-time.html" rel="alternate"></link><published>2017-11-19T16:19:31+08:00</published><updated>2017-11-19T16:19:36+08:00</updated><author><name>geons</name></author><id>tag:None,2017-11-19:/debian-cron-time.html</id><summary type="html">&lt;p&gt;crontab和cmos时间统一&lt;/p&gt;</summary><content type="html">&lt;h2&gt;遇到问题&lt;/h2&gt;
+&lt;p&gt;重启了VPS后发现crontab定时任务执行时间不正确，并且与北京时间相差了8个小时，很明显是crontab定时任务依据的时间不是UTC时间，因此需要将BIOS时间和系统时间同步，&lt;/p&gt;
+&lt;h2&gt;初步解决&lt;/h2&gt;
+&lt;blockquote&gt;
+&lt;h1&gt;date&lt;/h1&gt;
+&lt;p&gt;Mon Jun 25 14:34:18 CST 2012&lt;/p&gt;
+&lt;h1&gt;date -u&lt;/h1&gt;
+&lt;p&gt;Mon Jun 25 06:34:29 UTC 2012&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;显示的本地时间和UTC的时间都是正常的，但是显示我那系统crontab执行的时间是按照UTC时间来了，于是我再次设置了下时区为国内的，记得我之前好像设置过了，不过还是尝试一下,删除原来的时区文件，又重新复制到本地&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;rm /etc/localtime
+cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;然后vi /etc/localtime 查看了下时区文件，确实是CST-8,再向crontab里添加一个测试脚本，重启cron&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;/etc/init.d/cron restart&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;发现它依然没有按照国内的时间来执行，之前也没遇到过问题，而且同样的设置，目前另外的机子上也正常执行，最后才想起我这个用的是debian系统，&lt;strong&gt;debian系统下面，仅是设置/etc/localtime是不够的，更加需要的是/etc/timezone这个文件&lt;/strong&gt;。&lt;/p&gt;
+&lt;h2&gt;使用tzconfig&lt;/h2&gt;
+&lt;p&gt;最后用了tzselect程序来设置时区，运行tzselect命令后，按照自己要的时间选择选项，最后选1保存确认即可。再次重启cron，添加测试任务，这次终于按照本地时间运行了，如果不行就重新登录一下或者重启下。&lt;/p&gt;
+&lt;h2&gt;使用hwclock&lt;/h2&gt;
+&lt;p&gt;使用&lt;strong&gt;sudo hwclock&lt;/strong&gt;修改硬件时间，设置时间同步&lt;/p&gt;
+&lt;h2&gt;相关资料&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href="https://www.tech1024.cn/reprint/1618.html"&gt;Debian下系统时间比正常时间快8小时的问题&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;</content><category term="crontab debian"></category></entry><entry><title>Vue-cli脚手架-手摸手系列</title><link href="/fast-study-vue.html" rel="alternate"></link><published>2017-10-25T00:59:08+08:00</published><updated>2017-11-19T15:56:06+08:00</updated><author><name>geons</name></author><id>tag:None,2017-10-25:/fast-study-vue.html</id><summary type="html">&lt;p&gt;专注后端的前端工程师&lt;/p&gt;</summary><content type="html">&lt;h2&gt;Vue新特性&lt;/h2&gt;
 &lt;p&gt;Vue的特别之处在于抛弃了DOM操作思维，Vue.js是数据驱动的，任何适合都是根据数据来保持视图的更新，当然，在使用时候，完成一些简单的业务处理也是需要jQuery或者js。&lt;/p&gt;
 &lt;p&gt;本文主要是Vue-cli，俗称Vue的脚手架介绍，快速入门Vue开发。Vue-cli是vue工程开发的脚手架，可以自动生成vue模版，并且和webpack紧密结合一键式完成vue整个项目的开发环境部署。&lt;/p&gt;
 &lt;p&gt;&lt;img alt="" src="http://oyc3sy7c4.bkt.clouddn.com/upload_vue_mvvm.png"&gt;&lt;/p&gt;

@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="遇到问题 重启了VPS后发现crontab定时任务执行时间不正确，并且与北京时间相差了8个小时，很明显是crontab定时任务依据的时间不是UTC时间，因此需要将BIOS时间和系统时间同步， 初步解决 date Mon Jun 25 14:34:18 CST 2012 date -u Mon Jun 25 06:34:29 UTC 2012...">
+        <meta name="keywords" content="crontab debian">
+        <link rel="icon" href="/favicon.ico">
+
+        <title>debian下crontab执行时间不准确 - A Pelican Blog</title>
+
+        <!-- Stylesheets -->
+        <link href="/theme/css/bootstrap.min.css" rel="stylesheet">
+        <link href="/theme/css/nest.css" rel="stylesheet">
+        <link href="/theme/css/pygment.css" rel="stylesheet">
+        <!-- /Stylesheets -->
+
+        <!-- RSS Feeds -->
+        <link href="/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="A Pelican Blog Full Atom Feed" />
+        <link href="/feeds/linux.atom.xml" type="application/atom+xml" rel="alternate" title="A Pelican Blog Categories Atom Feed" />
+        <!-- /RSS Feeds -->
+
+        <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+        <!--[if lt IE 9]>
+          <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+          <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+        <![endif]-->
+
+
+
+    </head>
+
+    <body>
+
+        <!-- Header -->
+    <div class="header-container-article gradient">
+
+            <!-- Static navbar -->
+            <div class="container">
+                <div class="header-nav">
+                    <!-- <div class="header-logo">
+                        <a class="pull-left" href="/"><img class="mr20" src="/logo.svg" alt="logo">A Pelican Blog</a>
+                    </div> -->
+                    <div class="nav pull-right">
+                                <a href="/">最新</a>
+                                <a href="/categories.html">目录</a>
+                                <a href="/tags.html">标签</a>
+                    </div>
+                </div>
+            </div>
+            <!-- /Static navbar -->
+
+            <!-- Header -->
+    <!-- Header -->
+	<script src="/theme/js/toc.js" type="text/javascript"></script>
+	<script type="text/javascript">
+	if(window.screen.width >= 768){
+		window.onscroll = function(){
+			var t = document.documentElement.scrollTop || document.body.scrollTop; 
+			var top_div = document.getElementById( "top_div" );
+			if( t >= 300 ) {
+				top_div.style.display = "block";
+			} else {
+				top_div.style.display = "none";
+			}
+		}
+	}
+	</script>
+    <div class="container header-wrapper-article">
+        <div class="row">
+              <div class="col-lg-12">
+					<div class="header-vertical-line"></div>
+					<h1 class="header-title-article">debian下crontab执行时间不准确</h1>
+					<p class="header-date-article">
+					<!-- 作者 <a href="/author/geons.html">geons</a>, --> 
+					2017-11-19, 修改 2017-11-19&nbsp;&nbsp;|&nbsp;&nbsp;
+					<span class="glyphicon glyphicon-folder-open mr5" aria-hidden="true"></span> <a href="/category/linux.html">Linux</a>&nbsp;&nbsp;
+					<span class="glyphicon glyphicon-tags mr5" aria-hidden="true"></span>
+<a href="/tag/crontab-debian.html">crontab debian</a></p>
+              </div>
+        </div>
+    </div>
+    <!-- /Header -->
+            <!-- /Header -->
+
+        </div>
+        <!-- /Header -->
+
+
+        <!-- Content -->
+	<div id="top_div" onclick="javascript:window.scrollTo(0,0)"><span class="glyphicon glyphicon-chevron-up" aria-hidden="true"></span> 回到顶部</div>
+    <div id="contents" class="container content">
+		<div id="toc"></div>
+        <h2>遇到问题</h2>
+<p>重启了VPS后发现crontab定时任务执行时间不正确，并且与北京时间相差了8个小时，很明显是crontab定时任务依据的时间不是UTC时间，因此需要将BIOS时间和系统时间同步，</p>
+<h2>初步解决</h2>
+<blockquote>
+<h1>date</h1>
+<p>Mon Jun 25 14:34:18 CST 2012</p>
+<h1>date -u</h1>
+<p>Mon Jun 25 06:34:29 UTC 2012</p>
+</blockquote>
+<p>显示的本地时间和UTC的时间都是正常的，但是显示我那系统crontab执行的时间是按照UTC时间来了，于是我再次设置了下时区为国内的，记得我之前好像设置过了，不过还是尝试一下,删除原来的时区文件，又重新复制到本地</p>
+<blockquote>
+<p>rm /etc/localtime
+cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime</p>
+</blockquote>
+<p>然后vi /etc/localtime 查看了下时区文件，确实是CST-8,再向crontab里添加一个测试脚本，重启cron</p>
+<blockquote>
+<p>/etc/init.d/cron restart</p>
+</blockquote>
+<p>发现它依然没有按照国内的时间来执行，之前也没遇到过问题，而且同样的设置，目前另外的机子上也正常执行，最后才想起我这个用的是debian系统，<strong>debian系统下面，仅是设置/etc/localtime是不够的，更加需要的是/etc/timezone这个文件</strong>。</p>
+<h2>使用tzconfig</h2>
+<p>最后用了tzselect程序来设置时区，运行tzselect命令后，按照自己要的时间选择选项，最后选1保存确认即可。再次重启cron，添加测试任务，这次终于按照本地时间运行了，如果不行就重新登录一下或者重启下。</p>
+<h2>使用hwclock</h2>
+<p>使用<strong>sudo hwclock</strong>修改硬件时间，设置时间同步</p>
+<h2>相关资料</h2>
+<ul>
+<li><a href="https://www.tech1024.cn/reprint/1618.html">Debian下系统时间比正常时间快8小时的问题</a></li>
+</ul>
+		<br/><br/>
+		<p style="color: #eb2344;"><b>
+		原创文章，欢迎转载，请保留出处。有任何错误、疑问或者建议，欢迎指出。
+		</b></p>
+		<br/><br/>
+
+        
+    </div>
+        <!-- /Content --> 
+
+        <!-- Footer -->
+        <div class="footer gradient-2">
+            <div class="container footer-container ">
+                <div class="row">
+                    <div class="col-xs-4 col-sm-3 col-md-3 col-lg-3">
+                    </div>
+                    <div class="col-xs-4 col-sm-3 col-md-3 col-lg-3">
+                    </div> 
+					<div class="col-xs-4 col-sm-3 col-md-3 col-lg-3">
+                    </div>
+                    <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3">
+                        <p class="pull-right text-right">
+                            <em><a href="https://github.com/geonscn" target="_blank"></a>GitHub</em><br/>
+                            <em>Theme by <a href="https://github.com/molivier" target="_blank"><u>Molivier</u></a></em><br/>
+                            <small>&copy; GeonsMe 2017</small>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /Footer -->
+    </body>
+</html>
