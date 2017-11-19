@@ -1,16 +1,18 @@
-Title: Vue-cli脚手架
+Title: Vue-cli脚手架-手摸手系列
 Category: 前端
 Tags: vue 
 Slug: fast-study-vue
 Authors: geons
 Summary: 专注后端的前端工程师
 Date: 2017-10-25 00:59:08
-Modified: 2017-11-12 22:20:45
+Modified: 2017-11-19 15:56:06
 
 ## Vue新特性
 Vue的特别之处在于抛弃了DOM操作思维，Vue.js是数据驱动的，任何适合都是根据数据来保持视图的更新，当然，在使用时候，完成一些简单的业务处理也是需要jQuery或者js。
 
 本文主要是Vue-cli，俗称Vue的脚手架介绍，快速入门Vue开发。Vue-cli是vue工程开发的脚手架，可以自动生成vue模版，并且和webpack紧密结合一键式完成vue整个项目的开发环境部署。
+
+![](http://oyc3sy7c4.bkt.clouddn.com/upload_vue_mvvm.png)
 
 ## vue-cli使用
 

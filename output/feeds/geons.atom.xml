@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>A Pelican Blog - geons</title><link href="/" rel="alternate"></link><link href="/feeds/geons.atom.xml" rel="self"></link><id>/</id><updated>2017-11-12T22:20:45+08:00</updated><entry><title>Vue-cli脚手架</title><link href="/fast-study-vue.html" rel="alternate"></link><published>2017-10-25T00:59:08+08:00</published><updated>2017-11-12T22:20:45+08:00</updated><author><name>geons</name></author><id>tag:None,2017-10-25:/fast-study-vue.html</id><summary type="html">&lt;p&gt;专注后端的前端工程师&lt;/p&gt;</summary><content type="html">&lt;h2&gt;Vue新特性&lt;/h2&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>A Pelican Blog - geons</title><link href="/" rel="alternate"></link><link href="/feeds/geons.atom.xml" rel="self"></link><id>/</id><updated>2017-11-19T15:56:06+08:00</updated><entry><title>Vue-cli脚手架-手摸手系列</title><link href="/fast-study-vue.html" rel="alternate"></link><published>2017-10-25T00:59:08+08:00</published><updated>2017-11-19T15:56:06+08:00</updated><author><name>geons</name></author><id>tag:None,2017-10-25:/fast-study-vue.html</id><summary type="html">&lt;p&gt;专注后端的前端工程师&lt;/p&gt;</summary><content type="html">&lt;h2&gt;Vue新特性&lt;/h2&gt;
 &lt;p&gt;Vue的特别之处在于抛弃了DOM操作思维，Vue.js是数据驱动的，任何适合都是根据数据来保持视图的更新，当然，在使用时候，完成一些简单的业务处理也是需要jQuery或者js。&lt;/p&gt;
 &lt;p&gt;本文主要是Vue-cli，俗称Vue的脚手架介绍，快速入门Vue开发。Vue-cli是vue工程开发的脚手架，可以自动生成vue模版，并且和webpack紧密结合一键式完成vue整个项目的开发环境部署。&lt;/p&gt;
+&lt;p&gt;&lt;img alt="" src="http://oyc3sy7c4.bkt.clouddn.com/upload_vue_mvvm.png"&gt;&lt;/p&gt;
 &lt;h2&gt;vue-cli使用&lt;/h2&gt;
 &lt;ul&gt;
 &lt;li&gt;
