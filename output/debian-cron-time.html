@@ -4,7 +4,7 @@
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="description" content="遇到问题 重启了VPS后发现crontab定时任务执行时间不正确，并且与北京时间相差了8个小时，很明显是crontab定时任务依据的时间不是UTC时间，因此需要将BIOS时间和系统时间同步， 初步解决 date Mon Jun 25 14:34:18 CST 2012 date -u Mon Jun 25 06:34:29 UTC 2012...">
+        <meta name="description" content="遇到问题 重启了VPS后发现crontab定时任务执行时间不正确，并且与北京时间相差了8个小时，很明显是crontab定时任务依据的时间不是UTC时间，因此需要将BIOS时间和系统时间同步， 初步解决 #date Mon Jun 25 14:34:18 CST 2012 #date -u Mon Jun 25 06:34:29 UTC 2012...">
         <meta name="keywords" content="crontab debian">
         <link rel="icon" href="/favicon.ico">
 
@@ -95,21 +95,24 @@
         <h2>遇到问题</h2>
 <p>重启了VPS后发现crontab定时任务执行时间不正确，并且与北京时间相差了8个小时，很明显是crontab定时任务依据的时间不是UTC时间，因此需要将BIOS时间和系统时间同步，</p>
 <h2>初步解决</h2>
-<blockquote>
-<h1>date</h1>
-<p>Mon Jun 25 14:34:18 CST 2012</p>
-<h1>date -u</h1>
-<p>Mon Jun 25 06:34:29 UTC 2012</p>
-</blockquote>
+<div class="highlight"><pre><span></span><span class="c1">#date</span>
+Mon Jun <span class="m">25</span> <span class="m">14</span>:34:18 CST <span class="m">2012</span>
+<span class="c1">#date -u</span>
+Mon Jun <span class="m">25</span> <span class="m">06</span>:34:29 UTC <span class="m">2012</span>
+</pre></div>
+
+
 <p>显示的本地时间和UTC的时间都是正常的，但是显示我那系统crontab执行的时间是按照UTC时间来了，于是我再次设置了下时区为国内的，记得我之前好像设置过了，不过还是尝试一下,删除原来的时区文件，又重新复制到本地</p>
-<blockquote>
-<p>rm /etc/localtime
-cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime</p>
-</blockquote>
+<div class="highlight"><pre><span></span>rm /etc/localtime
+cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
+</pre></div>
+
+
 <p>然后vi /etc/localtime 查看了下时区文件，确实是CST-8,再向crontab里添加一个测试脚本，重启cron</p>
-<blockquote>
-<p>/etc/init.d/cron restart</p>
-</blockquote>
+<div class="highlight"><pre><span></span>/etc/init.d/cron restart
+</pre></div>
+
+
 <p>发现它依然没有按照国内的时间来执行，之前也没遇到过问题，而且同样的设置，目前另外的机子上也正常执行，最后才想起我这个用的是debian系统，<strong>debian系统下面，仅是设置/etc/localtime是不够的，更加需要的是/etc/timezone这个文件</strong>。</p>
 <h2>使用tzconfig</h2>
 <p>最后用了tzselect程序来设置时区，运行tzselect命令后，按照自己要的时间选择选项，最后选1保存确认即可。再次重启cron，添加测试任务，这次终于按照本地时间运行了，如果不行就重新登录一下或者重启下。</p>
