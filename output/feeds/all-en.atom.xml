@@ -1,5 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>A Pelican Blog</title><link href="/" rel="alternate"></link><link href="/feeds/all-en.atom.xml" rel="self"></link><id>/</id><updated>2017-11-19T16:19:36+08:00</updated><entry><title>debian下crontab执行时间不准确</title><link href="/debian-cron-time.html" rel="alternate"></link><published>2017-11-19T16:19:31+08:00</published><updated>2017-11-19T16:19:36+08:00</updated><author><name>geons</name></author><id>tag:None,2017-11-19:/debian-cron-time.html</id><summary type="html">&lt;p&gt;crontab和cmos时间统一&lt;/p&gt;</summary><content type="html">&lt;h2&gt;遇到问题&lt;/h2&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>A Pelican Blog</title><link href="/" rel="alternate"></link><link href="/feeds/all-en.atom.xml" rel="self"></link><id>/</id><updated>2017-11-26T16:30:10+08:00</updated><entry><title>Redis Windows64位安装启动</title><link href="/redis-win.html" rel="alternate"></link><published>2017-11-26T16:30:04+08:00</published><updated>2017-11-26T16:30:10+08:00</updated><author><name>geons</name></author><id>tag:None,2017-11-26:/redis-win.html</id><summary type="html">&lt;p&gt;专注后端的前端工程师&lt;/p&gt;</summary><content type="html">&lt;h2&gt;Redis(Win64)下载地址&lt;/h2&gt;
+&lt;p&gt;官方是不支持win版的，不过Microsoft Open Tech group 在Github上开发了一个win64Redis项目，地址是&lt;a href="https://github.com/MSOpenTech/redis"&gt;https://github.com/MSOpenTech/redis&lt;/a&gt;&lt;/p&gt;
+&lt;h2&gt;Redis安装&lt;/h2&gt;
+&lt;p&gt;msi格式安装，Redis会以service形式运行，整个目录结构是&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;redis-benchmark.exe // 基准测试
+redis-check-aof.exe // aof
+redis-check-dump.exe // dump 
+redis-cli.exe   // redis客户端
+redis-server.exe // redis服务端
+redis.windows.conf // 配置文件
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h2&gt;基本命令&lt;/h2&gt;
+&lt;h3&gt;Redis服务启动&lt;/h3&gt;
+&lt;p&gt;从命令行以服务形式启动Redis&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;redis-server redis.windows.conf
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;或者使用&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;redis-server --service-start
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h3&gt;停止Redis服务&lt;/h3&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;redis-server --service-stop
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h2&gt;卸载Redis服务&lt;/h2&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;redis-server --service-uninstall
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h2&gt;指定Redis服务&lt;/h2&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;redis-server --service-install -server-name myRedisName -port &lt;span class="m"&gt;10001&lt;/span&gt;
+
+redis-server --service-start -server-name MyRedisName -port &lt;span class="m"&gt;10001&lt;/span&gt;
+
+redis-server --service-stop -server-name MyRedisName -port &lt;span class="m"&gt;10001&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;</content><category term="redis"></category></entry><entry><title>debian下crontab执行时间不准确</title><link href="/debian-cron-time.html" rel="alternate"></link><published>2017-11-19T16:19:31+08:00</published><updated>2017-11-19T16:19:36+08:00</updated><author><name>geons</name></author><id>tag:None,2017-11-19:/debian-cron-time.html</id><summary type="html">&lt;p&gt;crontab和cmos时间统一&lt;/p&gt;</summary><content type="html">&lt;h2&gt;遇到问题&lt;/h2&gt;
 &lt;p&gt;重启了VPS后发现crontab定时任务执行时间不正确，并且与北京时间相差了8个小时，很明显是crontab定时任务依据的时间不是UTC时间，因此需要将BIOS时间和系统时间同步，&lt;/p&gt;
 &lt;h2&gt;初步解决&lt;/h2&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="c1"&gt;#date&lt;/span&gt;

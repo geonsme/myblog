@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="Redis(Win64)下载地址 官方是不支持win版的，不过Microsoft Open Tech group 在Github上开发了一个win64Redis项目，地址是https://github.com/MSOpenTech/redis Redis安装 msi格式安装，Redis会以service形式运行，整个目录结构是 redis-benchmark.exe // 基准测试...">
+        <meta name="keywords" content="redis">
+        <link rel="icon" href="/favicon.ico">
+
+        <title>Redis Windows64位安装启动 - 花名叽叽的博客</title>
+
+        <!-- Stylesheets -->
+        <link href="/theme/css/bootstrap.min.css" rel="stylesheet">
+        <link href="/theme/css/nest.css" rel="stylesheet">
+        <link href="/theme/css/pygment.css" rel="stylesheet">
+        <!-- /Stylesheets -->
+
+        <!-- RSS Feeds -->
+        <link href="/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="A Pelican Blog Full Atom Feed" />
+        <link href="/feeds/hou-tai.atom.xml" type="application/atom+xml" rel="alternate" title="A Pelican Blog Categories Atom Feed" />
+        <!-- /RSS Feeds -->
+
+        <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+        <!--[if lt IE 9]>
+          <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+          <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+        <![endif]-->
+
+
+
+    </head>
+
+    <body>
+
+        <!-- Header -->
+    <div class="header-container-article gradient">
+
+            <!-- Static navbar -->
+            <div class="container">
+                <div class="header-nav">
+                    <!-- <div class="header-logo">
+                        <a class="pull-left" href="/"><img class="mr20" src="/logo.svg" alt="logo">A Pelican Blog</a>
+                    </div> -->
+                    <div class="nav pull-right">
+                                <a href="/">最新</a>
+                                <a href="/categories.html">目录</a>
+                                <a href="/tags.html">标签</a>
+                    </div>
+                </div>
+            </div>
+            <!-- /Static navbar -->
+
+            <!-- Header -->
+    <!-- Header -->
+	<script src="/theme/js/toc.js" type="text/javascript"></script>
+	<script type="text/javascript">
+	if(window.screen.width >= 768){
+		window.onscroll = function(){
+			var t = document.documentElement.scrollTop || document.body.scrollTop; 
+			var top_div = document.getElementById( "top_div" );
+			if( t >= 300 ) {
+				top_div.style.display = "block";
+			} else {
+				top_div.style.display = "none";
+			}
+		}
+	}
+	</script>
+    <div class="container header-wrapper-article">
+        <div class="row">
+              <div class="col-lg-12">
+					<div class="header-vertical-line"></div>
+					<h1 class="header-title-article">Redis Windows64位安装启动</h1>
+					<p class="header-date-article">
+					<!-- 作者 <a href="/author/geons.html">geons</a>, --> 
+					2017-11-26, 修改 2017-11-26&nbsp;&nbsp;|&nbsp;&nbsp;
+					<span class="glyphicon glyphicon-folder-open mr5" aria-hidden="true"></span> <a href="/category/hou-tai.html">后台</a>&nbsp;&nbsp;
+					<span class="glyphicon glyphicon-tags mr5" aria-hidden="true"></span>
+<a href="/tag/redis.html">redis</a></p>
+              </div>
+        </div>
+    </div>
+    <!-- /Header -->
+            <!-- /Header -->
+
+        </div>
+        <!-- /Header -->
+
+
+        <!-- Content -->
+	<div id="top_div" onclick="javascript:window.scrollTo(0,0)"><span class="glyphicon glyphicon-chevron-up" aria-hidden="true"></span> 回到顶部</div>
+    <div id="contents" class="container content">
+		<div id="toc"></div>
+        <h2>Redis(Win64)下载地址</h2>
+<p>官方是不支持win版的，不过Microsoft Open Tech group 在Github上开发了一个win64Redis项目，地址是<a href="https://github.com/MSOpenTech/redis">https://github.com/MSOpenTech/redis</a></p>
+<h2>Redis安装</h2>
+<p>msi格式安装，Redis会以service形式运行，整个目录结构是</p>
+<div class="highlight"><pre><span></span>redis-benchmark.exe // 基准测试
+redis-check-aof.exe // aof
+redis-check-dump.exe // dump 
+redis-cli.exe   // redis客户端
+redis-server.exe // redis服务端
+redis.windows.conf // 配置文件
+</pre></div>
+
+
+<h2>基本命令</h2>
+<h3>Redis服务启动</h3>
+<p>从命令行以服务形式启动Redis</p>
+<div class="highlight"><pre><span></span>redis-server redis.windows.conf
+</pre></div>
+
+
+<p>或者使用</p>
+<div class="highlight"><pre><span></span>redis-server --service-start
+</pre></div>
+
+
+<h3>停止Redis服务</h3>
+<div class="highlight"><pre><span></span>redis-server --service-stop
+</pre></div>
+
+
+<h2>卸载Redis服务</h2>
+<div class="highlight"><pre><span></span>redis-server --service-uninstall
+</pre></div>
+
+
+<h2>指定Redis服务</h2>
+<div class="highlight"><pre><span></span>redis-server --service-install -server-name myRedisName -port <span class="m">10001</span>
+
+redis-server --service-start -server-name MyRedisName -port <span class="m">10001</span>
+
+redis-server --service-stop -server-name MyRedisName -port <span class="m">10001</span>
+</pre></div>
+		<br/><br/>
+		<p style="color: #eb2344;"><b>
+		原创文章，欢迎转载，请保留出处。有任何错误、疑问或者建议，欢迎指出。
+		</b></p>
+		<br/><br/>
+
+        
+    </div>
+        <!-- /Content --> 
+
+        <!-- Footer -->
+        <div class="footer gradient-2">
+            <div class="container footer-container ">
+                <div class="row">
+                    <div class="col-xs-4 col-sm-3 col-md-3 col-lg-3">
+                    </div>
+                    <div class="col-xs-4 col-sm-3 col-md-3 col-lg-3">
+                    </div> 
+					<div class="col-xs-4 col-sm-3 col-md-3 col-lg-3">
+                    </div>
+                    <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3">
+                        <p class="pull-right text-right">
+                            <em><a href="https://github.com/geonscn" target="_blank"></a>GitHub</em><br/>
+                            <em>Theme by <a href="https://github.com/molivier" target="_blank"><u>Molivier</u></a></em><br/>
+                            <small>&copy; GeonsMe 2017</small>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /Footer -->
+    </body>
+</html>
