@@ -4,11 +4,11 @@
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="description" content="Posts Archives">
-        <meta name="keywords" content="">
+        <meta name="description" content="现有的Websocket方案">
+        <meta name="keywords" content="nodejs, socket.io">
         <link rel="icon" href="/favicon.ico">
 
-        <title>文档 - 花名叽叽的博客</title>
+        <title>使用socketio和nodejs快速打造IM聊天室 - 花名叽叽的博客</title>
 
         <!-- Stylesheets -->
         <link href="/theme/css/bootstrap.min.css" rel="stylesheet">
@@ -18,6 +18,7 @@
 
         <!-- RSS Feeds -->
         <link href="/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="A Pelican Blog Full Atom Feed" />
+        <link href="/feeds/hou-tai.atom.xml" type="application/atom+xml" rel="alternate" title="A Pelican Blog Categories Atom Feed" />
         <!-- /RSS Feeds -->
 
         <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
@@ -33,7 +34,7 @@
     <body>
 
         <!-- Header -->
-    <div class="header-container gradient">
+    <div class="header-container-article gradient">
 
             <!-- Static navbar -->
             <div class="container">
@@ -51,17 +52,36 @@
             <!-- /Static navbar -->
 
             <!-- Header -->
-    <div class="container header-wrapper">
+    <!-- Header -->
+	<script src="/theme/js/toc.js" type="text/javascript"></script>
+	<script type="text/javascript">
+	if(window.screen.width >= 768){
+		window.onscroll = function(){
+			var t = document.documentElement.scrollTop || document.body.scrollTop; 
+			var top_div = document.getElementById( "top_div" );
+			if( t >= 300 ) {
+				top_div.style.display = "block";
+			} else {
+				top_div.style.display = "none";
+			}
+		}
+	}
+	</script>
+    <div class="container header-wrapper-article">
         <div class="row">
               <div class="col-lg-12">
-                  <div class="header-content">
-                      <h1 class="header-title text-uppercase">Archives</h1>
-                      <div class="header-underline"></div>
-                      <p class="header-subtitle header-subtitle-homepage">Archives for all posts</p>
-                  </div>
+					<div class="header-vertical-line"></div>
+					<h1 class="header-title-article">使用socketio和nodejs快速打造IM聊天室</h1>
+					<p class="header-date-article">
+					<!-- 作者 <a href="/author/geons.html">geons</a>, --> 
+					2017-11-26, 修改 2017-11-26&nbsp;&nbsp;|&nbsp;&nbsp;
+					<span class="glyphicon glyphicon-folder-open mr5" aria-hidden="true"></span> <a href="/category/hou-tai.html">后台</a>&nbsp;&nbsp;
+					<span class="glyphicon glyphicon-tags mr5" aria-hidden="true"></span>
+<a href="/tag/nodejs.html">nodejs</a>, <a href="/tag/socketio.html">socket.io</a></p>
               </div>
         </div>
     </div>
+    <!-- /Header -->
             <!-- /Header -->
 
         </div>
@@ -69,22 +89,17 @@
 
 
         <!-- Content -->
-    <div class="archive-container">
-        <div class="container content archive">
-            <h2><a href="/archives.html">Archives</a></h2>
-            <dl class="dl-horizontal">
-            	<dt>2017-11-26</dt>
-            	<dd><a href="/redis-win.html">Redis Windows64位安装启动</a></dd>
-            	<dt>2017-11-26</dt>
-            	<dd><a href="/socketio-1.html">使用socketio和nodejs快速打造IM聊天室</a></dd>
-            	<dt>2017-11-19</dt>
-            	<dd><a href="/debian-cron-time.html">debian下crontab执行时间不准确</a></dd>
-            	<dt>2017-10-25</dt>
-            	<dd><a href="/fast-study-vue.html">Vue-cli脚手架-手摸手系列</a></dd>
-            	<dt>2017-10-24</dt>
-            	<dd><a href="/fast-make-pelican-blog.html">快速搭建Pelican+GithubPage静态博客</a></dd>
-            </dl>
-        </div>
+	<div id="top_div" onclick="javascript:window.scrollTo(0,0)"><span class="glyphicon glyphicon-chevron-up" aria-hidden="true"></span> 回到顶部</div>
+    <div id="contents" class="container content">
+		<div id="toc"></div>
+        <h2>现有的Websocket方案</h2>
+		<br/><br/>
+		<p style="color: #eb2344;"><b>
+		原创文章，欢迎转载，请保留出处。有任何错误、疑问或者建议，欢迎指出。
+		</b></p>
+		<br/><br/>
+
+        
     </div>
         <!-- /Content --> 
 
