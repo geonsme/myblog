@@ -1,5 +1,74 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>A Pelican Blog</title><link href="/" rel="alternate"></link><link href="/feeds/all-en.atom.xml" rel="self"></link><id>/</id><updated>2017-12-02T22:47:12+08:00</updated><entry><title>用Docker实现Vue前端持续集成开发（上）</title><link href="/vue-docker.html" rel="alternate"></link><published>2017-12-02T22:47:08+08:00</published><updated>2017-12-02T22:47:12+08:00</updated><author><name>geons</name></author><id>tag:None,2017-12-02:/vue-docker.html</id><summary type="html">&lt;p&gt;专注后端的前端工程师&lt;/p&gt;</summary><content type="html">&lt;h2&gt;持续集成&lt;/h2&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>A Pelican Blog</title><link href="/" rel="alternate"></link><link href="/feeds/all-en.atom.xml" rel="self"></link><id>/</id><updated>2017-12-09T23:50:50+08:00</updated><entry><title>Debian或者Ubuntu内核更新教程</title><link href="/linux-update-kernel.html" rel="alternate"></link><published>2017-12-09T23:50:40+08:00</published><updated>2017-12-09T23:50:50+08:00</updated><author><name>geons</name></author><id>tag:None,2017-12-09:/linux-update-kernel.html</id><summary type="html">&lt;p&gt;专注后端的前端工程师&lt;/p&gt;</summary><content type="html">&lt;h2&gt;为什么更换内核&lt;/h2&gt;
+&lt;p&gt;由于Linux内核版本更新快，可能向后兼容的问题经常出现，需要更换底层内核来实现环境安装，比如Docker的内核要4.0以上，本文将Debian/Ubuntu的更换内核方法做详细讲解&lt;/p&gt;
+&lt;h2&gt;Debian的准备工作&lt;/h2&gt;
+&lt;p&gt;添加软件包源并更新列表&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="nb"&gt;echo&lt;/span&gt; -e &lt;span class="s2"&gt;&amp;quot;\ndeb http://ftp.debian.org/debian/ wheezy-backports main&amp;quot;&lt;/span&gt; &amp;gt;&amp;gt; /etc/apt/sources.list
+apt-get update
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;使用root权限操作&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;su root
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h2&gt;安装内核&lt;/h2&gt;
+&lt;h3&gt;查询可用内核列表&lt;/h3&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;aptitude search linux-image &lt;span class="p"&gt;|&lt;/span&gt; awk &lt;span class="s1"&gt;&amp;#39;{print $2}&amp;#39;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;执行代码后可以看到很多内核版本，Debian 7 x64 系统选择 linux-image-3.2.0-4-amd64 内核，这个内核大部分 Debian 7 系统都是使用。而Ubuntu 14.04 则选择 linux-image-3.13.0-32-generic 内核。&lt;/p&gt;
+&lt;p&gt;Debian和Ubuntu唯一的区别就是这里提示的内核名称不一样，和下面安装内核用的命令略有区别，其他都通用！&lt;/p&gt;
+&lt;h3&gt;Debian安装内核&lt;/h3&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;apt-get -t wheezy-backports install linux-image-3.2.0-4-amd64 -y
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h3&gt;Ubuntu安装内核&lt;/h3&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;apt-get install linux-image-3.13.0-32-generic -y
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h2&gt;卸载内核&lt;/h2&gt;
+&lt;h3&gt;查看当前系统内核&lt;/h3&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;dpkg -l&lt;span class="p"&gt;|&lt;/span&gt;grep linux-image &lt;span class="p"&gt;|&lt;/span&gt; awk &lt;span class="s1"&gt;&amp;#39;{print $2}&amp;#39;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="c1"&gt;# VPS提示示例/64位 #&lt;/span&gt;
+&lt;span class="c1"&gt;# Debian 7 和 8 可能不一样，还有 64位和32位 内容也不一样。&lt;/span&gt;
+
+root@debian:~# dpkg -l&lt;span class="p"&gt;|&lt;/span&gt;grep linux-image &lt;span class="p"&gt;|&lt;/span&gt; awk &lt;span class="s1"&gt;&amp;#39;{print $2}&amp;#39;&lt;/span&gt;
+linux-image-3.2.0-4-amd64
+linux-image-4.10.1-041001-generic
+
+&lt;span class="c1"&gt;# Ubuntu 14.04 提示内容 #&lt;/span&gt;
+linux-image-3.13.0-32-generic
+linux-image-4.10.1-041001-generic
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h3&gt;卸载其余内核&lt;/h3&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;apt-get purge 其余内核名字 -y
+&lt;span class="c1"&gt;# 示例 #&lt;/span&gt;
+apt-get purge linux-image-4.10.1-041001-generic -y
+&lt;span class="c1"&gt;# 示例 #&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h2&gt;更新grub系统引导文件并重启&lt;/h2&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;update-grub
+reboot
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h2&gt;注意&lt;/h2&gt;
+&lt;p&gt;在更换内核前，需要检查自己的VPS是否支持内核更新，KVM or Openvz，对于Openvz类型的不要手贱随意，可能更新后机器就只有重装解决了，具体请咨询你的主机服务商。&lt;/p&gt;
+&lt;h2&gt;参考文章&lt;/h2&gt;
+&lt;p&gt;&lt;a href="https://doub.io/linux-jc6/"&gt;逗比根据地&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href="https://www.cmsky.com/debian-upgrade-kernel/"&gt;Dbian7更换内核版本&lt;/a&gt;&lt;/p&gt;</content><category term="debian"></category><category term="kernel"></category><category term="ubuntu"></category></entry><entry><title>用Docker实现Vue前端持续集成开发（上）</title><link href="/vue-docker.html" rel="alternate"></link><published>2017-12-02T22:47:08+08:00</published><updated>2017-12-02T22:47:12+08:00</updated><author><name>geons</name></author><id>tag:None,2017-12-02:/vue-docker.html</id><summary type="html">&lt;p&gt;专注后端的前端工程师&lt;/p&gt;</summary><content type="html">&lt;h2&gt;持续集成&lt;/h2&gt;
 &lt;p&gt;传统讲来，持续集成无非就是将业务随着提交不断地进行构建、集成并部署到测试环境或生产环境，过去都是用脚本代替人工进行构建，在回滚和事务隔离上是致命弱点。因此，有了基于Docker的持续集成概念，本文以现学现卖的VUE例子，抛弃传统的部署方式，用容器技术快速打造一个开发部署环境，最引人注目的是在传统的事务回滚上加上了环境回滚，将版控提升了一层，个人觉得很好用。&lt;/p&gt;
 &lt;h2&gt;流程&lt;/h2&gt;
 &lt;ul&gt;

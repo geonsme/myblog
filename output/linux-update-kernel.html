@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="为什么更换内核 由于Linux内核版本更新快，可能向后兼容的问题经常出现，需要更换底层内核来实现环境安装，比如Docker的内核要4.0以上，本文将Debian/Ubuntu的更换内核方法做详细讲解 Debian的准备工作 添加软件包源并更新列表 echo -e &#34;\ndeb http://ftp.debian.org/debian/ wheezy-backports main&#34; &gt;&gt;...">
+        <meta name="keywords" content="debian, kernel, ubuntu">
+        <link rel="icon" href="/favicon.ico">
+
+        <title>Debian或者Ubuntu内核更新教程 - 花名叽叽的博客</title>
+
+        <!-- Stylesheets -->
+        <link href="/theme/css/bootstrap.min.css" rel="stylesheet">
+        <link href="/theme/css/nest.css" rel="stylesheet">
+        <link href="/theme/css/pygment.css" rel="stylesheet">
+        <!-- /Stylesheets -->
+
+        <!-- RSS Feeds -->
+        <link href="/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="A Pelican Blog Full Atom Feed" />
+        <link href="/feeds/hou-tai.atom.xml" type="application/atom+xml" rel="alternate" title="A Pelican Blog Categories Atom Feed" />
+        <!-- /RSS Feeds -->
+
+        <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+        <!--[if lt IE 9]>
+          <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+          <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+        <![endif]-->
+
+
+
+    </head>
+
+    <body>
+
+        <!-- Header -->
+    <div class="header-container-article gradient">
+
+            <!-- Static navbar -->
+            <div class="container">
+                <div class="header-nav">
+                    <!-- <div class="header-logo">
+                        <a class="pull-left" href="/"><img class="mr20" src="/logo.svg" alt="logo">A Pelican Blog</a>
+                    </div> -->
+                    <div class="nav pull-right">
+                                <a href="/">最新</a>
+                                <a href="/categories.html">目录</a>
+                                <a href="/tags.html">标签</a>
+                    </div>
+                </div>
+            </div>
+            <!-- /Static navbar -->
+
+            <!-- Header -->
+    <!-- Header -->
+	<script src="/theme/js/toc.js" type="text/javascript"></script>
+	<script type="text/javascript">
+	if(window.screen.width >= 768){
+		window.onscroll = function(){
+			var t = document.documentElement.scrollTop || document.body.scrollTop; 
+			var top_div = document.getElementById( "top_div" );
+			if( t >= 300 ) {
+				top_div.style.display = "block";
+			} else {
+				top_div.style.display = "none";
+			}
+		}
+	}
+	</script>
+    <div class="container header-wrapper-article">
+        <div class="row">
+              <div class="col-lg-12">
+					<div class="header-vertical-line"></div>
+					<h1 class="header-title-article">Debian或者Ubuntu内核更新教程</h1>
+					<p class="header-date-article">
+					<!-- 作者 <a href="/author/geons.html">geons</a>, --> 
+					2017-12-09, 修改 2017-12-09&nbsp;&nbsp;|&nbsp;&nbsp;
+					<span class="glyphicon glyphicon-folder-open mr5" aria-hidden="true"></span> <a href="/category/hou-tai.html">后台</a>&nbsp;&nbsp;
+					<span class="glyphicon glyphicon-tags mr5" aria-hidden="true"></span>
+<a href="/tag/debian.html">debian</a>, <a href="/tag/kernel.html">kernel</a>, <a href="/tag/ubuntu.html">ubuntu</a></p>
+              </div>
+        </div>
+    </div>
+    <!-- /Header -->
+            <!-- /Header -->
+
+        </div>
+        <!-- /Header -->
+
+
+        <!-- Content -->
+	<div id="top_div" onclick="javascript:window.scrollTo(0,0)"><span class="glyphicon glyphicon-chevron-up" aria-hidden="true"></span> 回到顶部</div>
+    <div id="contents" class="container content">
+		<div id="toc"></div>
+        <h2>为什么更换内核</h2>
+<p>由于Linux内核版本更新快，可能向后兼容的问题经常出现，需要更换底层内核来实现环境安装，比如Docker的内核要4.0以上，本文将Debian/Ubuntu的更换内核方法做详细讲解</p>
+<h2>Debian的准备工作</h2>
+<p>添加软件包源并更新列表</p>
+<div class="highlight"><pre><span></span><span class="nb">echo</span> -e <span class="s2">&quot;\ndeb http://ftp.debian.org/debian/ wheezy-backports main&quot;</span> &gt;&gt; /etc/apt/sources.list
+apt-get update
+</pre></div>
+
+
+<p>使用root权限操作</p>
+<div class="highlight"><pre><span></span>su root
+</pre></div>
+
+
+<h2>安装内核</h2>
+<h3>查询可用内核列表</h3>
+<div class="highlight"><pre><span></span>aptitude search linux-image <span class="p">|</span> awk <span class="s1">&#39;{print $2}&#39;</span>
+</pre></div>
+
+
+<p>执行代码后可以看到很多内核版本，Debian 7 x64 系统选择 linux-image-3.2.0-4-amd64 内核，这个内核大部分 Debian 7 系统都是使用。而Ubuntu 14.04 则选择 linux-image-3.13.0-32-generic 内核。</p>
+<p>Debian和Ubuntu唯一的区别就是这里提示的内核名称不一样，和下面安装内核用的命令略有区别，其他都通用！</p>
+<h3>Debian安装内核</h3>
+<div class="highlight"><pre><span></span>apt-get -t wheezy-backports install linux-image-3.2.0-4-amd64 -y
+</pre></div>
+
+
+<h3>Ubuntu安装内核</h3>
+<div class="highlight"><pre><span></span>apt-get install linux-image-3.13.0-32-generic -y
+</pre></div>
+
+
+<h2>卸载内核</h2>
+<h3>查看当前系统内核</h3>
+<div class="highlight"><pre><span></span>dpkg -l<span class="p">|</span>grep linux-image <span class="p">|</span> awk <span class="s1">&#39;{print $2}&#39;</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span><span class="c1"># VPS提示示例/64位 #</span>
+<span class="c1"># Debian 7 和 8 可能不一样，还有 64位和32位 内容也不一样。</span>
+
+root@debian:~# dpkg -l<span class="p">|</span>grep linux-image <span class="p">|</span> awk <span class="s1">&#39;{print $2}&#39;</span>
+linux-image-3.2.0-4-amd64
+linux-image-4.10.1-041001-generic
+
+<span class="c1"># Ubuntu 14.04 提示内容 #</span>
+linux-image-3.13.0-32-generic
+linux-image-4.10.1-041001-generic
+</pre></div>
+
+
+<h3>卸载其余内核</h3>
+<div class="highlight"><pre><span></span>apt-get purge 其余内核名字 -y
+<span class="c1"># 示例 #</span>
+apt-get purge linux-image-4.10.1-041001-generic -y
+<span class="c1"># 示例 #</span>
+</pre></div>
+
+
+<h2>更新grub系统引导文件并重启</h2>
+<div class="highlight"><pre><span></span>update-grub
+reboot
+</pre></div>
+
+
+<h2>注意</h2>
+<p>在更换内核前，需要检查自己的VPS是否支持内核更新，KVM or Openvz，对于Openvz类型的不要手贱随意，可能更新后机器就只有重装解决了，具体请咨询你的主机服务商。</p>
+<h2>参考文章</h2>
+<p><a href="https://doub.io/linux-jc6/">逗比根据地</a></p>
+<p><a href="https://www.cmsky.com/debian-upgrade-kernel/">Dbian7更换内核版本</a></p>
+		<br/><br/>
+		<p style="color: #eb2344;"><b>
+		原创文章，欢迎转载，请保留出处。有任何错误、疑问或者建议，欢迎指出。
+		</b></p>
+		<br/><br/>
+
+        
+    </div>
+        <!-- /Content --> 
+
+        <!-- Footer -->
+        <div class="footer gradient-2">
+            <div class="container footer-container ">
+                <div class="row">
+                    <div class="col-xs-4 col-sm-3 col-md-3 col-lg-3">
+                    </div>
+                    <div class="col-xs-4 col-sm-3 col-md-3 col-lg-3">
+                    </div> 
+					<div class="col-xs-4 col-sm-3 col-md-3 col-lg-3">
+                    </div>
+                    <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3">
+                        <p class="pull-right text-right">
+                            <em><a href="https://github.com/geonscn" target="_blank"></a>GitHub</em><br/>
+                            <em>Theme by <a href="https://github.com/molivier" target="_blank"><u>Molivier</u></a></em><br/>
+                            <small>&copy; GeonsMe 2017</small>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /Footer -->
+    </body>
+</html>
